@@ -6,12 +6,12 @@ This repository contains a Python REST API project that is designed to handle th
 
 - Python 3.7 or higher
 - Fast Api
-- minio docker container
+- minio container 
 
 ## Setup 
 
 ```bash
-AWS_BUCKET_NAME=
+MINIO_BUCKET_NAME=
 ACCESS_KEY=
 SECRET_KEY=
 HOST_BUCKET=
@@ -37,6 +37,7 @@ http://0.0.0.0:8000/docs
 
 ## Resources
 
+[minio](https://www.sefidian.com/2022/04/08/deploy-standalone-minio-using-docker-compose/)
 [boto3](https://stackoverflow.com/questions/42809096/difference-in-boto3-between-resource-client-and-session)
 
 [upload](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3/bucket/upload_fileobj.html)

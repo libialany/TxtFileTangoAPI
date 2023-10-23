@@ -15,7 +15,7 @@ s3=boto3.resource(os.getenv("RESOURCE_TYPE"),
     verify=False
 )
 
-bucket = s3.Bucket(os.getenv("AWS_BUCKET_NAME"))
+bucket = s3.Bucket(os.getenv("MINIO_BUCKET_NAME"))
 app = FastAPI()
 @app.post("/upload/")
 async def upload_file(file: UploadFile):
@@ -24,7 +24,7 @@ async def upload_file(file: UploadFile):
             bucket.upload_fileobj(f,file.filename)
         return {"message": "File uploaded successfully"}
     except NoCredentialsError:
-        raise HTTPException(status_code=500, detail="AWS credentials not available")
+        raise HTTPException(status_code=500, detail="MINIO credentials not available")
 @app.get("/download/{file_name}")
 async def download_file(file_name: str):
     try:
