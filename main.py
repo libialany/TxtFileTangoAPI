@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import json
 import boto3
 from botocore.client import Config
 from fastapi import FastAPI, UploadFile, File, HTTPException
@@ -34,6 +35,19 @@ async def download_file(file_name: str):
             print("The object does not exist.")
         else:
             raise
+@app.get("/objects/")
+async def list_objects():
+    try:
+        objects_list=[]
+        objects = bucket.objects.all()
+        for item in objects:
+            objects_list.append(item.key)
+        if(len(objects_list))<1:
+            return {"message": "Empty bucket"}
+        return json.dumps(objects_list)
+    except NoCredentialsError:
+        raise HTTPException(status_code=500, detail="AWS credentials not available")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT")))

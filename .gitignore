@@ -1,2 +1,4 @@
 venv
 .env
+main.test.py
+main.v0.py
